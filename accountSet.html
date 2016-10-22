@@ -1,0 +1,103 @@
+<extend name="Public:base" />
+<block name="keyword">
+	<title>用户后台－千图网</title>
+	<meta name="keywords" content="用户后台－千图网"/>
+	<meta name="description" content="用户后台－千图网"/>
+</block>
+<block name="css">
+	<css href="__TUBIAO__/css/common.css?v=2" />
+	<css href="__TUBIAO__/css/main.css" />
+	<css href="__TUBIAO__/css/user_v1.css?v=2" />
+	<css href="__TUBIAO__/css/user/accountSet.css?v=2" />
+</block>
+<block name="appendJs">
+	<js href="__TUBIAO__/js/Masonry.js" />
+	<js href="__TUBIAO__/js/searchTips.js" />
+	<js href="__TUBIAO__/js/custom.js?v=1" />
+	<js href="__TUBIAO__/js/login_reg.js?v=2" />
+	<js href="__TUBIAO__/js/user/accountSet.js?v=2" />
+	<script>
+		$(".urlli").click(function(){
+			window.location.href=$(this).attr("url");
+		});
+		$('.left-menu-item').hover(function() {
+			var menu_id = $(this).attr('data-id');
+			if(!$(this).hasClass('default'))
+				$('.h'+menu_id).removeClass('h'+menu_id).addClass('hh'+menu_id);
+		}, function() {
+			var menu_id = $(this).attr('data-id');
+			if(!$(this).hasClass('default'))
+				$('.hh'+menu_id).removeClass('hh'+menu_id).addClass('h'+menu_id);
+		});
+	</script>
+</block>
+
+<block name="header">
+	<include file="Public:user/header" />
+</block>
+
+<block name="body">
+<input type="hidden" id="from" value="user_bind" />
+<div class="user-boder">
+	<div class="wrapper  w1150" id="wrapper">
+		<div style="overflow:hidden">
+			{:W('UserLeftMenuSP', array('current'=>'h12'))}
+			<div id="listBox1" class="fl">
+					<div style="width:970px; margin-left:20px; margin-top:20px;">
+						<div class="bind-class">
+							<ul>
+								<li style="margin-right:30px;"><span class="gz_current">个人信息</span></li>
+								<li class="urlli" url="http://www.58pic.com/index.php?m=user&a=bindQq" style="cursor:pointer;"><span>安全设置</span></li>
+							</ul>
+						</div>
+					</div>
+					<div id="mainzone">
+						<div class="oneline" style="overflow:visible;">
+							<span class="setname">所在城市：</span>
+							<span class="outspan">
+								<span class="inspan is1"><?php if($thisUserAccountSet['zone1']){echo $thisUserAccountSet['zone1'];}else{echo '请选择';} ?></span>
+								<div class="zonediv">
+								<foreach name="map" item="vo">
+								<div class="selectitem si1">{$vo}</div>
+								</foreach>
+								</div>
+							</span>
+							<span class="outspan">
+								<span class="inspan is2"><?php if($thisUserAccountSet['zone2']){echo $thisUserAccountSet['zone2'];}else{echo '请选择';} ?></span>
+								<div class="zonediv zd2">
+									<notempty name="zone2">
+										<foreach name="zone2" item="vo2">
+										<div class="selectitem si2">{$vo2}</div>
+										</foreach>
+									</notempty>
+								</div>
+							</span>
+						</div>
+						<div class="oneline">
+							<span class="setname">职业：</span>
+							<input class="inputtext" type="text" name="job" value="{$thisUserAccountSet.job}" />
+						</div>
+						<div class="oneline">
+							<span class="setname">工作年限：</span>
+							<input class="inputtext" type="text" name="work_year" value="{$thisUserAccountSet.work_year}" />
+						</div>
+						<div class="oneline">
+							<span class="setname">QQ：</span>
+							<input class="inputtext" type="text" name="qq" value="{$thisUserAccountSet.qq}" />
+						</div>
+						<div class="oneline">
+							<span class="setname">我要接单：</span>
+							<div style="line-height:56px;">
+								<label style="cursor:pointer;"><input type="checkbox" name="is_jd" <if condition="$thisUserAccountSet.is_jd eq 1">checked</if> />&nbsp;是</label>
+							</div>
+						</div>
+						<div class="oneline">
+							<span class="setname">&nbsp;</span>
+							<span id="submitButton">保存</span>
+						</div>
+					</div>
+			</div>					
+        </div>
+    </div>
+</div>
+</block>
